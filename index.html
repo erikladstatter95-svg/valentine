@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Invitation</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(180deg, #ffffff, #ffe6e6);
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: red;
+  transform: rotate(45deg);
+  animation: float 8s linear infinite;
+}
+
+.heart::before,
+.heart::after {
+  content: '';
+  width: 30px;
+  height: 30px;
+  background: red;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.heart::before {
+  top: -15px;
+  left: 0;
+}
+
+.heart::after {
+  left: -15px;
+  top: 0;
+}
+
+@keyframes float {
+  from {
+    bottom: -50px;
+    opacity: 1;
+  }
+  to {
+    bottom: 110%;
+    opacity: 0;
+  }
+}
+
+/* Card */
+#container {
+  position: relative;
+  z-index: 2;
+  padding: 20px;
+}
+
+button {
+  background: #ff4d6d;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 25px;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+}
+
+#letter {
+  display: none;
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+#question {
+  display: none;
+  margin-top: 20px;
+}
+
+.choice {
+  margin: 10px;
+}
+
+#no {
+  position: relative;
+}
+
+#final {
+  display: none;
+}
+
+#final img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bg-music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div id="container">
+  <h1>💌 A Small Invitation 💌</h1>
+  <button onclick="openLetter()">Open the letter</button>
+
+  <div id="letter">
+    <p>
+      I know we argue about silly things sometimes.<br><br>
+      We both know that distance makes everything harder.<br><br>
+      But today, I want to give you this invitation and ask you something very special.
+    </p>
+
+    <div id="question">
+      <h2>Do you want to be my Valentine?</h2>
+      <button class="choice" onclick="yes()">Yes 💙</button>
+      <button class="choice" id="no">No 😅</button>
+    </div>
+  </div>
+
+  <div id="final">
+    <h2>You made me the happiest person ❤️</h2>
+    <img src="us.jpg" alt="Us together">
+  </div>
+</div>
+
+<script>
+function openLetter() {
+  document.getElementById('letter').style.display = 'block';
+  document.getElementById('question').style.display = 'block';
+  document.getElementById('bg-music').play();
+}
+
+document.getElementById('no').addEventListener('mouseover', () => {
+  const btn = document.getElementById('no');
+  btn.style.left = Math.random() * 150 - 75 + 'px';
+  btn.style.top = Math.random() * 150 - 75 + 'px';
+});
+
+function yes() {
+  document.getElementById('letter').style.display = 'none';
+  document.getElementById('final').style.display = 'block';
+}
+
+/* Generate hearts */
+for (let i = 0; i < 20; i++) {
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.style.left = Math.random() * 100 + 'vw';
+  heart.style.animationDelay = Math.random() * 5 + 's';
+  heart.style.background = i % 2 === 0 ? 'red' : '#4da6ff';
+  document.body.appendChild(heart);
+}
+</script>
+
+</body>
+</html>
